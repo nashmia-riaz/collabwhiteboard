@@ -1,36 +1,39 @@
 <html>
-<script src="http://cdn.pubnub.com/pubnub.min.js"></script>
-<h2>Number of doodlers: <span id="occupancy">0</span></h2>
 
+<canvas id="drawCanvas" width="800" height="600"></canvas>
+<script src="http://cdn.pubnub.com/pubnub.min.js"></script>
 <script type="text/javascript">
 var channel = 'my-draw-demo';
 
- var PUBNUB_demo = PUBNUB.init({
-    publish_key: 'pub-c-156a6d5f-22bd-4a13-848d-b5b4d4b36695',
-    subscribe_key: 'sub-c-f762fb78-2724-11e4-a4df-02ee2ddab7fe'
-  });
+var pubnub = PUBNUB.init({
+    publish_key: 'pub-c-1db2ceb6-acb6-40ed-bb4d-bce9ab592145',
+    subscribe_key: 'sub-c-1e121a1a-0955-11e6-bbd9-02ee2ddab7fe'
+});
+pubnub.publish({
+    channel: channel,
+    message: { 
+        plots: plots // your array goes here
+    } 
+});
+function drawFromStream(message) {
+    if(!message) return;        
+
+    ctx.beginPath();
+    drawOnCanvas(message.plots);
+}
 pubnub.subscribe({
     channel: channel,
     callback: drawFromStream
+});
+pubnub.subscribe({
+  channel: channel,
+  callback: drawFromStream,
 
-
-  	// Add presence
-  	presence: function(m){if(m.occupancy > 1){
-        document.getElementById('unit').textContent = 'doodlers';
-      }
-    document.getElementById('occupancy').textContent = m.occupancy;
+  // Add presence
+  presence: function(m){
+     document.getElementById('occupancy').textContent = m.occupancy;
   }
 });
-  function publish(data) {
-    pubnub.publish({
-      channel: channel,
-      message: data
-    });
-</script>
-
-<canvas id="drawCanvas" width="800" height="600"></canvas>
-
-<script type="text/javascript">
 
 var canvas = document.getElementById('drawCanvas');
 var ctx = canvas.getContext('2d');
@@ -56,8 +59,9 @@ function draw(e) {
 
   plots.push({x: x, y: y});
 
-  drawOnCanvas([1,0,0],plots);
+  drawOnCanvas([0,1,0],plots);
 }
+
 function drawOnCanvas(color, plots) {
   ctx.beginPath();
   ctx.moveTo(plots[0].x, plots[0].y);
@@ -67,24 +71,14 @@ function drawOnCanvas(color, plots) {
   }
   ctx.stroke();
 }
-function drawFromStream(message) {
-    if(!message) return;        
 
-    ctx.beginPath();
-    drawOnCanvas(message.plots);
-}
 function startDraw(e) {
   isActive = true;
 }
 
 function endDraw(e) {
   isActive = false;
-	 pubnub.publish({
-	    channel: channel,
-	    message: { 
-	        plots: plots // your array goes here
-	    } 
-	});
+
   // empty the array
   plots = [];
 } 
