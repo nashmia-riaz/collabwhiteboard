@@ -3,58 +3,42 @@
 <canvas id="drawCanvas" width="800" height="600"></canvas>
 <script src="http://cdn.pubnub.com/pubnub.min.js"></script>
 <script type="text/javascript">
-var channel = 'my-draw-demo';
+/* PubNub */
+
+var channel = 'draw';
 
 var pubnub = PUBNUB.init({
     publish_key: 'pub-c-156a6d5f-22bd-4a13-848d-b5b4d4b36695',
-    subscribe_key: 'sub-c-f762fb78-2724-11e4-a4df-02ee2ddab7fe'
+    subscribe_key: 'sub-c-f762fb78-2724-11e4-a4df-02ee2ddab7fe',
 });
-
-function drawFromStream(message) {
-    if(!message) return;        
-
-    ctx.beginPath();
-    drawOnCanvas(message.plots);
-}
 
 pubnub.subscribe({
   channel: channel,
   callback: drawFromStream,
-
-  // Add presence
   presence: function(m){
-     document.getElementById('occupancy').textContent = m.occupancy;
+    if(m.occupancy > 0){
+      document.getElementById('occupancy').textContent = m.occupancy;
+    }
   }
 });
 
+/* Draw on canvas */
+
 var canvas = document.getElementById('drawCanvas');
 var ctx = canvas.getContext('2d');
-
+   
 ctx.lineWidth = '3';
+ctx.lineCap = 'round';
+ctx.lineJoin = 'round';
+
+var color = 'yellowgreen';
 
 canvas.addEventListener('mousedown', startDraw, false);
 canvas.addEventListener('mousemove', draw, false);
 canvas.addEventListener('mouseup', endDraw, false);
 
-// create a flag
-var isActive = false;
-
-// array to collect coordinates
-var plots = [];
-
-function draw(e) {
-  if(!isActive) return;
-
-  // cross-browser canvas coordinates
-  var x = e.offsetX || e.layerX - canvas.offsetLeft;
-  var y = e.offsetY || e.layerY - canvas.offsetTop;
-
-  plots.push({x: x, y: y});
-
-  drawOnCanvas([0,1,0],plots);
-}
-
 function drawOnCanvas(color, plots) {
+  ctx.strokeStyle = color;
   ctx.beginPath();
   ctx.moveTo(plots[0].x, plots[0].y);
 
@@ -64,21 +48,41 @@ function drawOnCanvas(color, plots) {
   ctx.stroke();
 }
 
+function drawFromStream(message) {
+  if(!message || message.plots.length < 1) return;      
+  drawOnCanvas(message.color, message.plots);
+}
+
+var isActive = false;
+var plots = [];
+
+function draw(e) {
+  if(!isActive) return;
+
+  var x = e.offsetX || e.layerX - canvas.offsetLeft;
+  var y = e.offsetY || e.layerY - canvas.offsetTop;
+
+  plots.push({x: x, y: y});
+  drawOnCanvas(color, plots);
+}
+  
 function startDraw(e) {
   isActive = true;
 }
-
+  
 function endDraw(e) {
   isActive = false;
-pubnub.publish({
+  
+  pubnub.publish({
     channel: channel,
-    message: { 
-        plots: plots // your array goes here
-    } 
-});
-  // empty the array
+    message: {
+      color: color, 
+      plots: plots
+    }
+  });
+
   plots = [];
-} 
+}
 
 
 </script>
