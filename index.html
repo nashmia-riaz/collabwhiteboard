@@ -80,6 +80,19 @@ function draw(e) {
   drawOnCanvas(color, plots);
 }
   
+  
+  
+    // resize function for canvas window
+    function resize()
+    {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        draw();
+    }
+    window.addEventListener("resize", resize);
+    resize();
+    
+    
 function startDraw(e) {
   if (e.target == canvas) {
     e.preventDefault();
