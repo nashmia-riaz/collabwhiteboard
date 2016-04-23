@@ -1,29 +1,3 @@
-<html>
-<script src="http://cdn.pubnub.com/pubnub.min.js"></script>
-<h2>Number of doodlers: <span id="occupancy">0</span></h2>
-
-<script type="text/javascript">
-var channel = 'my-draw-demo';
-
- var PUBNUB_demo = PUBNUB.init({
-    publish_key: 'pub-c-b0111032-2103-4c52-a628-037979ab2842',
-    subscribe_key: 'sub-c-298a1dac-0955-11e6-bbd9-02ee2ddab7fe'
-  });
-pubnub.subscribe({
-    channel: channel,
-    callback: drawFromStream
-
-
-  	// Add presence
-  	presence: function(m){
-    document.getElementById('occupancy').textContent = m.occupancy;
-  }
-});
-</script>
-
-<canvas id="drawCanvas" width="800" height="600"></canvas>
-
-<script type="text/javascript">
 
 var canvas = document.getElementById('drawCanvas');
 var ctx = canvas.getContext('2d');
@@ -81,7 +55,3 @@ function endDraw(e) {
   // empty the array
   plots = [];
 } 
-
-
-</script>
-</html>
