@@ -9,22 +9,14 @@ var pubnub = PUBNUB.init({
     publish_key: 'pub-c-b0111032-2103-4c52-a628-037979ab2842',
     subscribe_key: 'sub-c-298a1dac-0955-11e6-bbd9-02ee2ddab7fe'
 });
-pubnub.publish({
-    channel: channel,
-    message: { 
-        plots: plots // your array goes here
-    } 
-});
+
 function drawFromStream(message) {
     if(!message) return;        
 
     ctx.beginPath();
     drawOnCanvas(message.plots);
 }
-pubnub.subscribe({
-    channel: channel,
-    callback: drawFromStream
-});
+
 pubnub.subscribe({
   channel: channel,
   callback: drawFromStream,
@@ -78,7 +70,12 @@ function startDraw(e) {
 
 function endDraw(e) {
   isActive = false;
-
+pubnub.publish({
+    channel: channel,
+    message: { 
+        plots: plots // your array goes here
+    } 
+});
   // empty the array
   plots = [];
 } 
