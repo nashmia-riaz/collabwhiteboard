@@ -1,0 +1,82 @@
+<html>
+<script src="https://cdn.pubnub.com/pubnub.min.js"></script>
+
+<script type="text/javascript">
+var channel = 'my-draw-demo'
+
+var PUBNUB_demo = PUBNUB.init({
+	publish_key: 'pub-c-d81ab807-6617-4299-966e-538be58fc2af',
+	subscribe_key:'sub-c-1677c408-0941-11e6-b422-0619f8945a4f',
+})
+
+pubnub.subscribe({
+    channel: channel,
+    callback: drawFromStream
+    
+});
+</script>
+
+<canvas id="drawCanvas" width="800" height="600"></canvas>
+
+<script type="text/javascript">
+
+var canvas = document.getElementById('drawCanvas');
+var ctx = canvas.getContext('2d');
+
+ctx.lineWidth = '3';
+
+canvas.addEventListener('mousedown', startDraw, false);
+canvas.addEventListener('mousemove', draw, false);
+canvas.addEventListener('mouseup', endDraw, false);
+
+// create a flag
+var isActive = false;
+
+// array to collect coordinates
+var plots = [];
+
+function draw(e) {
+  if(!isActive) return;
+
+  // cross-browser canvas coordinates
+  var x = e.offsetX || e.layerX - canvas.offsetLeft;
+  var y = e.offsetY || e.layerY - canvas.offsetTop;
+
+  plots.push({x: x, y: y});
+
+  drawOnCanvas([1,0,0],plots);
+}
+function drawOnCanvas(color, plots) {
+  ctx.beginPath();
+  ctx.moveTo(plots[0].x, plots[0].y);
+
+  for(var i=1; i<plots.length; i++) {
+    ctx.lineTo(plots[i].x, plots[i].y);
+  }
+  ctx.stroke();
+}
+function drawFromStream(message) {
+    if(!message) return;        
+
+    ctx.beginPath();
+    drawOnCanvas(message.plots);
+}
+function startDraw(e) {
+  isActive = true;
+}
+
+function endDraw(e) {
+  isActive = false;
+	 pubnub.publish({
+	    channel: channel,
+	    message: { 
+	        plots: plots // your array goes here
+	    } 
+	});
+  // empty the array
+  plots = [];
+} 
+
+
+</script>
+</html>
