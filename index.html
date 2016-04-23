@@ -33,9 +33,17 @@ ctx.lineJoin = 'round';
 
 var color = 'yellowgreen';
 
-canvas.addEventListener('mousedown', startDraw, false);
-canvas.addEventListener('mousemove', draw, false);
-canvas.addEventListener('mouseup', endDraw, false);
+var isTouchSupported = 'ontouchstart' in window;
+  var isPointerSupported = navigator.pointerEnabled;
+  var isMSPointerSupported =  navigator.msPointerEnabled;
+  
+  var downEvent = isTouchSupported ? 'touchstart' : (isPointerSupported ? 'pointerdown' : (isMSPointerSupported ? 'MSPointerDown' : 'mousedown'));
+  var moveEvent = isTouchSupported ? 'touchmove' : (isPointerSupported ? 'pointermove' : (isMSPointerSupported ? 'MSPointerMove' : 'mousemove'));
+  var upEvent = isTouchSupported ? 'touchend' : (isPointerSupported ? 'pointerup' : (isMSPointerSupported ? 'MSPointerUp' : 'mouseup'));
+      
+  canvas.addEventListener(downEvent, startDraw, false);
+  canvas.addEventListener(moveEvent, draw, false);
+  canvas.addEventListener(upEvent, endDraw, false);
 
 function drawOnCanvas(color, plots) {
   ctx.strokeStyle = color;
