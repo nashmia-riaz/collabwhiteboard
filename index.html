@@ -91,15 +91,6 @@ function draw(e) {
 
   plots.push({x: x, y: y});
   drawOnCanvas(color, plots);
-    
-  pubnub.publish({
-    channel: channel,
-    message: {
-      color: color, 
-      plots: plots
-    }
-  });
-
 }
   
   
@@ -128,6 +119,14 @@ function endDraw(e) {
     e.preventDefault();
   }
   isActive = false;
+  
+  pubnub.publish({
+    channel: channel,
+    message: {
+      color: color, 
+      plots: plots
+    }
+  });
 
   plots = [];
 }
