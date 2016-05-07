@@ -10,11 +10,13 @@ canvas.height = Math.min(document.documentElement.clientHeight, window.innerHeig
 
 
 ctx.strokeStyle = color;
-ctx.lineWidth = '30';
+ctx.lineWidth = '10';
 ctx.lineCap = 'round';
 ctx.lineJoin = 'round';
 
-
+$(document).on('click', '#width li a', function () {
+    ctx.lineWidth=$(this).parent().attr('value');
+ });
 var isTouchSupported = 'ontouchstart' in window;
 var isPointerSupported = navigator.pointerEnabled;
 var isMSPointerSupported =  navigator.msPointerEnabled;

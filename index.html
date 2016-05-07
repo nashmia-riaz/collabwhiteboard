@@ -1,5 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+<meta charset='utf-8'>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- ***ADD JQEURY*** -->
+<head>
+   <link rel="stylesheet" href="stylesheets/styles.css">
+   <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+   <script src="js/script.js"></script>
+</head>
+<body>
+
+<div id='cssmenu'>
+<ul>
+   <li class='active has-sub'><a href='#'><span>Width</span></a>
+      <ul id='width'>
+         <li value='10'><span><a href='#'><img src="images/10.png" align="center"></span></a></li>
+         <li  value='20'><a href='#'><img src="images/20.png"><span></span></a></li>
+         <li  value='30'><a href='#'><img src="images/30.png"><span></span></a></li>
+      </ul>
+
+</ul>
+</div>
+
+</body>
+<!-- <link rel="stylesheet" href="stylesheets/menu.css"> -->
+<!-- **** -->
+
 <head>
     <meta charset="UTF-8">
     <title>canvas 2.0</title>
@@ -13,7 +40,13 @@
 </head>
 
 <body>
-<canvas id="drawCanvas" width="800" height="600" style="background: url('http://thenewcode.com/assets/images/thumbnails/blueprint.png')"></canvas>
+
+<canvas id="drawCanvas" width="800" height="600" style="background: url('http://thenewcode.com/assets/images/thumbnails/blueprint.png'); 
+/*z-index: =2; position:absolute; top:0; left:0;*/
+"></canvas>
+<!-- <input type="button" style="z-index:2; position:absolute; top:10; left:10" value="test"/> -->
+
+
 
 <script src="https://cdn.pubnub.com/pubnub-dev.js"></script>
 <script src="board.js"></script>
