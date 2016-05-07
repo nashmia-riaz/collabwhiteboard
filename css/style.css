@@ -1,0 +1,263 @@
+html
+{ height: 100%;}
+
+*
+{ margin: 0;
+  padding: 0;}
+
+body
+{ font: normal 100% Arial, Helvetica, sans-serif;
+  background: #535353 url(../images/pattern.png) repeat;
+  color: #1D1D1D;}
+
+p
+{ padding: 0 0 15px 0;
+  line-height: 1.7em;
+  letter-spacing: -1px;
+  font-size: 100% }
+
+img
+{ border: 0;}
+
+h1, h2, h3, h4, h5, h6 
+{ font: normal 175% Arial, Helvetica, sans-serif;
+  color: #1D1D1D;
+  text-shadow: 1px 1px #FFF;
+  letter-spacing: -1px;
+  margin: 0 0 10px 0;
+  padding: 5px 0 0 0;}
+
+h2
+{ font: normal 165% Arial, Helvetica, sans-serif;
+  color: #1D1D1D;
+  text-shadow: 1px 1px #FFF;}
+
+h3
+{ font: normal 100% Arial, Helvetica, sans-serif;}
+
+h3 a, h3 a:hover
+{ color: #96B7B7;
+}
+
+h4, h5, h6
+{ margin: 0;
+  padding: 0 0 5px 0;
+  font: normal 150% Arial, Helvetica, sans-serif;
+  line-height: 1.5em;}
+
+h5, h6
+{ font: normal 95% Arial, Helvetica, sans-serif;
+  color: #888;
+  padding-bottom: 15px;}
+
+a, a:hover
+{ background: transparent;
+  outline: none;
+  text-decoration: none;
+  color: #FFF;
+}
+
+a:hover
+{ text-decoration: underline;}
+
+ul
+{ margin: 2px 0 22px 30px;
+  line-height: 1.7em;
+  font-style: normal;
+  font-size: 100%;}
+
+ol
+{ margin: 8px 0 22px 20px;}
+
+ol li
+{ margin: 0 0 11px 0;}
+
+#main, #header, #banner, #menubar, #site_content, #footer
+{ margin-left: auto; 
+  margin-right: auto;}
+
+#header
+{ width: 1000px;
+  height: 55px;
+  padding: 50px 0 0 0;
+  background: transparent;}
+
+#welcome
+{ width: 325px;
+  float: left;
+  height: 30px;
+  padding: 5px 0 20px 40px;
+  margin: 0 auto;
+  background: transparent;} 
+  
+#welcome H1
+{ font: normal 200% Arial, Helvetica, sans-serif;
+  color: #FFF;
+  letter-spacing: -3px;
+  text-shadow: 1px 1px #535353;}
+  
+span
+{ color: #098EFF;
+  text-shadow: 1px 1px #FFF;}
+
+ 
+#menubar
+{ width: 635px;
+  height: 35px;
+  text-align: center; 
+  margin: 0 auto;
+  padding-bottom: 20px;
+  float: right;
+  background: transparent;} 
+
+ul#menu
+{ 
+  margin: 0;
+  float: right;}
+
+ul#menu li
+{ padding: 0 0 0 0px;
+  list-style: none;
+  margin: 2px 0 0 0;
+  display: inline;
+  background: transparent;}
+
+ul#menu li a
+{ font: normal 120% Arial, Helvetica, sans-serif;
+  float: left;
+  letter-spacing: -1px;
+  height: 30px;
+  padding: 15px 25px 10px 25px;
+  text-align: center;
+  color: #1D1D1D;
+  text-shadow: 1px 1px #FFF;
+  text-decoration: none;} 
+
+ul#menu li a:hover
+{ color: #1D1D1D;
+  text-decoration: underline;}
+  
+ul#menu li.current a
+{ color: #098EFF;
+  text-decoration: underline;}
+
+#site_content
+{ width: 1000px;
+  overflow: hidden;
+  margin: 0 auto;
+  padding: 20px 0 0 0;
+  background: transparent url(../images/transparent.png) repeat;
+  border-radius: 15px 15px 15px 15px;
+  -moz-border-radius: 15px 15px 15px 15px;
+  -webkit-border: 15px 15px 15px 15px;} 
+  
+#image_container  
+{ width: 1000px;}
+
+#text_content
+{ float: right;
+  width: 435px;
+  padding: 0; 
+  margin: 0 20px 0 20px;}
+  
+#text_content h3
+ { color: #1D1D1D;
+  text-shadow: 1px 1px #FFF;}
+  
+.static_image
+{ float: left;
+  width: 500px;
+  height: 450px;
+  margin: 0 0 20px 20px;}  
+  
+#footer
+{ font: normal 120% Arial, Helvetica, sans-serif;
+  width: 1070px;
+  letter-spacing: -1px;
+  padding: 0 0 26px 0;
+  text-align: center; 
+  background: transparent;}
+
+#footer a, #footer a:hover
+{ text-decoration: none;
+  color: #1D1D1D;}
+
+#footer a:hover
+{ text-decoration: underline;
+  color: #1D1D1D;}
+
+.footer_container_box
+{ font: normal 90% Arial, Helvetica, sans-serif;
+  width: 325px;
+  padding: 5px;
+  text-align: center;
+  margin: 10px 10px 10px 10px;
+  float: left;
+  background: transparent;}
+
+.footer_container_boxl
+{ font: normal 90% Arial, Helvetica, sans-serif;
+  width: 325px;
+  padding: 5px;
+  text-align: center;
+  margin: 10px 0 10px 10px;
+  float: left;
+  background: transparent;}
+  
+.footer_container_box h4
+{  color: #1D1D1D;}
+
+.footer_container_boxl h4
+{  color: #1D1D1D;}
+
+.footer_container_box a
+{  color: #1D1D1D;}
+
+.footer_container_box a:hover
+{  color: #1D1D1D;}
+
+.footer_container_boxl a
+{  color: #1D1D1D;}
+
+.footer_container_boxl a:hover
+{  color: #1D1D1D;}
+
+.form_settings
+{ margin: 15px 0 0 0;}
+
+.form_settings p
+{ padding: 0 0 4px 0;}
+
+.form_settings span
+{ float: left; 
+  width: 120px;
+  text-shadow: none;
+  color: #1D1D1D;}
+  
+.form_settings input, .form_settings textarea
+{ padding: 2px; 
+  width: 299px; 
+  font: 100% arial; 
+  border: 1px solid #E5E5DB; 
+  background: #FFF; 
+  color: #47433F;}
+  
+.form_settings input[type="checkbox"]
+{ padding: 2px 0; 
+  width: 15px; 
+  font: 100% arial; 
+  border: 0; 
+  background: #FFF; 
+  color: #47433F;
+  margin: 28px 0;}
+
+.form_settings .submit
+{ font: 100% arial; 
+  border: 1px solid; 
+  width: 99px; 
+  margin: 0 0 0 325px; 
+  height: 26px;
+  padding: 2px 0 3px 0;
+  cursor: pointer; 
+  background: #5082BD; 
+  color: #FFF;} 
