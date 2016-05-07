@@ -9,6 +9,7 @@
    <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
    <script src="js/script.js"></script>
 </head>
+
 <body>
 
 <div id='cssmenu'>
@@ -41,15 +42,29 @@
 
 <body>
 
-<canvas id="drawCanvas" width="800" height="600" style="background: url('http://thenewcode.com/assets/images/thumbnails/blueprint.png'); 
-/*z-index: =2; position:absolute; top:0; left:0;*/
-"></canvas>
+
+<div style="background:#990; width:100%; padding:20px; ">
+<label>Image URL:</label><br/>
+<input type="text" id="imageLoader" name="imageLoader"/>
+<button onclick="uploadImage(imgURL())">Try it</button>
+</div>
+
+<script type="text/javascript">
+	function imgURL(){
+		return document.getElementById('imageLoader').value;
+	}
+</script>
+
+<canvas id="drawCanvas" width="800" height="600" 
+style="background: url('http://thenewcode.com/assets/images/thumbnails/blueprint.png');"></canvas>
+
+<script src="https://cdn.pubnub.com/pubnub-dev.js"></script>
+<script src="board.js"></script>
 <!-- <input type="button" style="z-index:2; position:absolute; top:10; left:10" value="test"/> -->
 
 
 
-<script src="https://cdn.pubnub.com/pubnub-dev.js"></script>
-<script src="board.js"></script>
+
 <br>
 shmancying it up:
 1. color picker (for pen and background)

@@ -4,7 +4,31 @@
 var canvas = document.getElementById('drawCanvas');
 var ctx = canvas.getContext('2d');
 var color = 'yellowgreen';
-   
+
+
+var isActive = false;
+var plots = [];
+var URL='';
+function uploadImage(imgURL){
+
+URL= imgURL;
+
+  var img = new Image();
+img.onload = function() {
+    ctx.drawImage(img, 0, 0);
+};
+
+  img.src = URL;
+  
+  publish({
+    color:color,
+    plots:plots,
+    URL:URL
+  });
+
+}
+
+
 canvas.width = Math.min(document.documentElement.clientWidth, window.innerWidth || 300);
 canvas.height = Math.min(document.documentElement.clientHeight, window.innerHeight || 300);
 
@@ -39,6 +63,7 @@ var pubnub = PUBNUB.init({
 pubnub.subscribe({
   channel: channel,
   callback: drawFromStream,
+  // callback: imageFromStream,
   presence: function(m){
     if(m.occupancy > 0){
       document.getElementById('occupancy').textContent = m.occupancy;
@@ -67,11 +92,21 @@ function drawOnCanvas(color, plots) {
 function drawFromStream(message) {
   if(!message || message.plots.length < 1) 
     return;      
+  if(message.URL){
+    uploadImage(message.URL); 
+    URL='';
+    publish({
+    color:color,
+    plots:plots,
+    URL:URL
+  });
+
+  }
   drawOnCanvas(message.color, message.plots);
+
+
 }
 
-var isActive = false;
-var plots = [];
 
 function draw(e) {
   e.preventDefault();
@@ -102,7 +137,8 @@ function endDraw(e) {
   
   publish({
     color:color,
-    plots:plots
+    plots:plots,
+    URL:URL
   });
 
   plots = [];
