@@ -27,6 +27,7 @@ PICKER = {
             .click(function (e) {
                 var new_color = PICKER.get_color(e);
                 $(input).css({'background-color': new_color}).val(new_color).trigger('change').removeClass('color-picker-binded');
+                color = new_color;
                 PICKER.close();
             })
             .hover(function () {
