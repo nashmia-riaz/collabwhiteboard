@@ -9,6 +9,7 @@ var color = 'yellowgreen';
 var isActive = false;
 var plots = [];
 var URL='';
+var prevURL=''
 function uploadImage(imgURL){
 URL= imgURL;
 
@@ -19,12 +20,12 @@ img.onload = function() {
 
   img.src = imgURL;
   
-  publish({
-    color:color,
-    plots:plots,
-    URL:URL
-  });
-// URL='';
+  // publish({
+  //   color:color,
+  //   plots:plots,
+  //   URL:URL
+  // });
+  prevURL = URL;
 }
 
 
@@ -91,7 +92,7 @@ function drawOnCanvas(color, plots) {
 function drawFromStream(message) {
   if(!message || message.plots.length < 1) 
     return;      
-  if(message.URL){
+  if(message.URL && prevURL!=message.URL){
     // uploadImage(message.URL); 
   //   URL='';
   //   publish({
@@ -138,8 +139,9 @@ function endDraw(e) {
   publish({
     color:color,
     plots:plots,
-    URL:URL
+    URL: URL
   });
+  URL='';
 
   plots = [];
 }
