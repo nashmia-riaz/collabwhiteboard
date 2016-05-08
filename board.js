@@ -15,7 +15,7 @@ URL= imgURL;
 
   var img = new Image();
 img.onload = function() {
-    ctx.drawImage(img, 10, 40);
+    ctx.drawImage(img, 10, 100);
 };
 
   img.src = URL;
