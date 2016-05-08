@@ -4,7 +4,7 @@
 var canvas = document.getElementById('drawCanvas');
 var ctx = canvas.getContext('2d');
 var color = 'yellowgreen';
-
+var width;
 
 var isActive = false;
 var plots = [];
@@ -34,12 +34,12 @@ canvas.height = Math.min(document.documentElement.clientHeight, window.innerHeig
 
 
 ctx.strokeStyle = color;
-ctx.lineWidth = '10';
+width = ctx.lineWidth = '10';
 ctx.lineCap = 'round';
 ctx.lineJoin = 'round';
 
 $(document).on('click', '#width li a', function () {
-    ctx.lineWidth=$(this).parent().attr('value');
+    width=ctx.lineWidth=$(this).parent().attr('value');
  });
 var isTouchSupported = 'ontouchstart' in window;
 var isPointerSupported = navigator.pointerEnabled;
@@ -78,8 +78,9 @@ function publish(data) {
   });
    }
 
-function drawOnCanvas(color, plots) {
+function drawOnCanvas(color, plots, width) {
   ctx.strokeStyle=color;
+  ctx.lineWidth=width;
   ctx.beginPath();
   ctx.moveTo(plots[0].x, plots[0].y);
 
@@ -93,17 +94,10 @@ function drawFromStream(message) {
   if(!message || message.plots.length < 1) 
     return;      
   if(message.URL && prevURL!=message.URL){
-    // uploadImage(message.URL); 
-  //   URL='';
-  //   publish({
-  //   color:color,
-  //   plots:plots,
-  //   URL:URL
-  // });
-  uploadImage(message.URL); 
-
+    uploadImage(message.URL); 
   }
-  drawOnCanvas(message.color, message.plots);
+  // alert('draw');
+  drawOnCanvas(message.color, message.plots, message.width);
 
 
 }
@@ -139,6 +133,7 @@ function endDraw(e) {
   publish({
     color:color,
     plots:plots,
+    width:width,
     URL: URL
   });
   URL='';
