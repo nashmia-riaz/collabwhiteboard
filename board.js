@@ -10,22 +10,21 @@ var isActive = false;
 var plots = [];
 var URL='';
 function uploadImage(imgURL){
-
 URL= imgURL;
 
   var img = new Image();
 img.onload = function() {
-    ctx.drawImage(img, 10, 100);
+    ctx.drawImage(img, 10, 40);
 };
 
-  img.src = URL;
+  img.src = imgURL;
   
   publish({
     color:color,
     plots:plots,
     URL:URL
   });
-
+// URL='';
 }
 
 
@@ -93,13 +92,14 @@ function drawFromStream(message) {
   if(!message || message.plots.length < 1) 
     return;      
   if(message.URL){
-    uploadImage(message.URL); 
-    URL='';
-    publish({
-    color:color,
-    plots:plots,
-    URL:URL
-  });
+    // uploadImage(message.URL); 
+  //   URL='';
+  //   publish({
+  //   color:color,
+  //   plots:plots,
+  //   URL:URL
+  // });
+  uploadImage(message.URL); 
 
   }
   drawOnCanvas(message.color, message.plots);
