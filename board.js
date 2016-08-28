@@ -2,6 +2,7 @@
 /* Draw on canvas */
 
 var canvas = document.getElementById('drawCanvas');
+// canvas.style['z-index'] = ;
 var ctx = canvas.getContext('2d');
 var color = 'yellowgreen';
 var width;
